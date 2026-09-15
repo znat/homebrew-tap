@@ -1,7 +1,7 @@
 # Written by scripts/bump-cask.sh in znat/parrotflow. Edit it there.
 cask "parrotflow" do
-  version "0.11.0"
-  sha256 "cd20b91d769eab59a17b8ce315404f78de4b94c9f28b6a3513f769c669284076"
+  version "0.12.1"
+  sha256 "7be029a8a4df872b037108acefc5c01b7704b4f2e0a7b4d9f7a6d892ac224a5b"
 
   url "https://github.com/znat/parrotflow/releases/download/v#{version}/ParrotFlow.zip",
       verified: "github.com/znat/parrotflow/"
@@ -17,11 +17,22 @@ cask "parrotflow" do
   # The app checks GitHub hourly and installs its own updates, so brew should
   # not treat a self-updated copy as outdated. See docs/distribution.md.
   auto_updates true
-  # Read as a minimum. macOS 14 is FluidAudio's floor: the speech models need
-  # CoreML on the ANE.
-  depends_on macos: :sonoma
+  # Read as a minimum, and it has to match  in
+  # Info.plist: brew installing on a Mac the app refuses to launch on is worse
+  # than brew refusing to install.
+  depends_on macos: :sequoia
+  # The ear the vocabulary matches by sound with. It is GPL-3 and stays a
+  # separate program invoked over a pipe, so brew installs it beside the app
+  # rather than the app bundling it — see Phonemes.swift.
+  depends_on formula: "espeak-ng"
 
   app "ParrotFlow.app"
+
+  # So  works. Every subcommand is reachable only
+  # by a 52-character path otherwise, and the first thing anyone types is the
+  # name. The binary refuses to start the app when it is run from a terminal
+  # with no arguments — see main.swift.
+  binary "#{appdir}/ParrotFlow.app/Contents/MacOS/ParrotFlow", target: "parrotflow"
 
   # Launched with LaunchServices, not by running the binary. TCC credits a
   # permission to the responsible process, and a binary exec'd from a shell is
