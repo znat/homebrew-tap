@@ -17,7 +17,7 @@ cask "parrotflow" do
   # The app checks GitHub hourly and installs its own updates, so brew should
   # not treat a self-updated copy as outdated. See docs/distribution.md.
   auto_updates true
-  # Read as a minimum, and it has to match  in
+  # Read as a minimum, and it has to match `LSMinimumSystemVersion` in
   # Info.plist: brew installing on a Mac the app refuses to launch on is worse
   # than brew refusing to install.
   depends_on macos: :sequoia
@@ -28,7 +28,7 @@ cask "parrotflow" do
 
   app "ParrotFlow.app"
 
-  # So  works. Every subcommand is reachable only
+  # So `parrotflow --setup-parsing` works. Every subcommand is reachable only
   # by a 52-character path otherwise, and the first thing anyone types is the
   # name. The binary refuses to start the app when it is run from a terminal
   # with no arguments — see main.swift.
@@ -36,15 +36,7 @@ cask "parrotflow" do
 
   # Launched with LaunchServices, not by running the binary. TCC credits a
   # permission to the responsible process, and a binary exec'd from a shell is
-  # credited to the terminal — the app then holds grants it cannot use. xdg-open - opens a file or URL in the user's preferred application
-
-Synopsis
-
-xdg-open { file | URL }
-
-xdg-open { --help | --manual | --version }
-
-Use 'man xdg-open' or 'xdg-open --manual' for additional info.
+  # credited to the terminal — the app then holds grants it cannot use. `open`
   # makes the app responsible for itself. scripts/install.sh ends the same way,
   # for the same reason. See docs/distribution.md.
   postflight do
