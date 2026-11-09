@@ -1,7 +1,7 @@
 # Written by scripts/bump-cask.sh in znat/parrotflow. Edit it there.
 cask "parrotflow" do
-  version "0.18.0"
-  sha256 "5d2aa651d31c804ccf43a0f81eedf0c74ce71f92c25ae56deb6f4e8b883dff5b"
+  version "0.19.0"
+  sha256 "c4e4694f6e4adb0c2de7692f79c23c49b83ab5b70a24b5b2a1b52462ac03aac2"
 
   url "https://github.com/znat/parrotflow/releases/download/v#{version}/ParrotFlow.zip",
       verified: "github.com/znat/parrotflow/"
@@ -28,7 +28,7 @@ cask "parrotflow" do
 
   app "ParrotFlow.app"
 
-  # So `parrotflow --setup-parsing` works. Every subcommand is reachable only
+  # So `parrotflow --check-config` works. Every subcommand is reachable only
   # by a 52-character path otherwise, and the first thing anyone types is the
   # name. The binary refuses to start the app when it is run from a terminal
   # with no arguments — see main.swift.
