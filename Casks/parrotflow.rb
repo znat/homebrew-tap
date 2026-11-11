@@ -1,7 +1,7 @@
 # Written by scripts/bump-cask.sh in znat/parrotflow. Edit it there.
 cask "parrotflow" do
-  version "0.19.0"
-  sha256 "c4e4694f6e4adb0c2de7692f79c23c49b83ab5b70a24b5b2a1b52462ac03aac2"
+  version "0.20.0"
+  sha256 "00900b1741d7152fe22821a3046b3c4c0b47fcffc4416bc247c57ec69809c600"
 
   url "https://github.com/znat/parrotflow/releases/download/v#{version}/ParrotFlow.zip",
       verified: "github.com/znat/parrotflow/"
